@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+ <body>
+<main>
+    <div class="main flex flex-col  w-96 h-96 bg-slate-500 translate-x-20 translate-y-9">
+        <input type="text" id="input" class=" rounded-md h-40 w-[340px] px-3 pb-16  ml-6 translate-y-9" >
+        <div class="box flex mt-16 w-96  h-10 justify-around ">
+            <select name="" id="select" class="w-64  ml-4 rounded-md">
+                <option value="">zx</option>
+                <option value="">zx</option>
+            </select>
+            <button onclick="start()"  class="bg-slate-700  rounded-md">confirm</button>
+        </div>
+        
+
+    </div>
+</main>
+       
+</body>
+<script>
+    let inputField=document.getElementById("input")
+    let select=document.getElementById("select")
+ let voices=[]
+ const msg=new SpeechSynthesisUtterance;
+     window.speechSynthesis.onvoiceschanged=()=>{
+        
+        msg.text=inputField.value;
+    voices=speechSynthesis.getVoices()
+msg.voice=voices[0]
+        speechSynthesis.speak(msg)
+
+        voices.forEach((vox,ind)=>{
+            let opt=document.createElement("option")
+            opt.innerHTML=vox.name
+            opt.value=ind
+            select.appendChild(opt)
+        })
+       
+
+     }
+     select.addEventListener("change",()=>{
+msg.voice=voices[select.value]
+        }) 
+        
+     console.log(voices)
+
+   let start=()=>{
+    msg.text=inputField.value
+   window.speechSynthesis.speak(msg);
+
+   }
+
+
+     
+</script>
+</html>
